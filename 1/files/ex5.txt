@@ -1,0 +1,156 @@
+//==========GATE LEVEL IMPLEMENTATION==========//
+
+
+//---------------------F1---------------------//
+
+module Circuit_F1 (A,B,C,D,F1);
+	output F1;
+	input A,B,C,D;
+
+	wire Bnot, Cnot, w1, w2, w3, w4;
+
+	not
+		(Bnot, B),
+		(Cnot, C);
+	and
+		(w1, B, C),
+		(w3, Bnot, Cnot, D);
+	or
+		(w2, w1, D);
+	and
+		(w4, A, w2);
+	or
+		(F1, w4, w3);
+endmodule
+
+//---------------------F2---------------------//
+
+module Circuit_F2 (A,B,C,D,F2);
+	output F2;
+	input A,B,C,D;
+
+wire Anot, Bnot, Cnot, Dnot, m0, m2, m3, m5, m7, m9, m10, m11, m13, m14;
+
+not
+	(Anot, A),
+	(Bnot, B),
+	(Cnot, C),
+	(Dnot, D);
+
+and
+	(m0,  Anot, Bnot, Cnot, Dnot),
+	(m2,  Anot, Bnot, C, Dnot),
+	(m3,  Anot, Bnot, C, D),
+	(m5,  Anot, B, Cnot, D),
+	(m7,  Anot, B, C, D),
+	(m9,  A, Bnot, Cnot, D),
+	(m10, A, Bnot, C, Dnot),
+	(m11, A, Bnot, C, D),
+	(m13, A, B, Cnot, D),
+	(m14, A, B, C, Dnot);
+
+or
+	(F2, m0, m2, m3, m5, m7, m9, m10, m11, m13, m14);
+
+endmodule
+
+//---------------------F2 using truth table---------------------//
+
+primitive table_F2 (A, B, C, D, F2);
+	output F2;
+	input A, B, C, D;
+	table
+	// A B C D : F2
+	   0 0 0 0 : 1;
+	   0 0 0 1 : 0;
+	   0 0 1 0 : 1;
+	   0 0 1 1 : 1;
+	   0 1 0 0 : 0;
+	   0 1 0 1 : 1;
+	   0 1 1 0 : 0;
+	   0 1 1 1 : 1;
+	   1 0 0 0 : 0;
+	   1 0 0 1 : 1;
+	   1 0 1 0 : 1;
+	   1 0 1 1 : 1;
+	   1 1 0 0 : 0;
+	   1 1 0 1 : 1;
+	   1 1 1 0 : 1;
+	   1 1 1 1 : 0;
+	endtable
+endprimitive
+
+//---------------------F3---------------------//
+
+
+module Circuit_F3 (A,B,C,D,E,F3);
+	output F3;
+	input A, B, C, D, E;
+
+	wire w1, w2, w3, w4, w5, w6;
+
+	and (w1, A, B, C);
+	and (w2, B, C);
+	or (w3, A, w2);
+	and (w4, w3, D);
+	or (w5, B, C);
+	and (w6, w5, D, E);
+	or (F3, w1, w4, w6);
+endmodule
+
+//---------------------F4---------------------//
+
+module Circuit_F4 (A,B,C,D,E,F4);
+	output F4;
+	input A, B, C, D, E;
+
+	wire
+
+	and (w1, C, D);
+	or (w2, B, w1, E);
+	and (w3, A, w2);
+	and (w4, B, C, D, E);
+	or (F4, w3, w4);
+endmodule
+
+//==========DATA FLOW IMPLEMENTATION==========//
+
+//---------------------F1---------------------//
+
+
+module Circuit_F1 (A, B, C, D, F1);
+	output F1;
+	input A, B, C, D;
+
+	assign F1 = (A & ((B & C) | D)) | (~B & ~C & D);
+endmodule
+
+//---------------------F2---------------------//
+
+
+module Circuit_F2 (A, B, C, D, F2);
+	output F2;
+	input A, B, C, D;
+
+	assign F2 = (~A & ~B & ~C & ~D) | (~A & ~B & C & ~D) | (~A & ~B & C & D) | (~A & B & ~C & D) | (~A & B & C & D) | (A & ~B & ~C & D) | (A & ~B & C & ~D) | (A & ~B & C & D) | (A & B & ~C & D) | (A & B & C & ~D)
+endmodule
+
+
+//---------------------F3---------------------//
+
+
+module Circuit_F3 (A, B, C, D, E, F3);
+	output F3;
+	input A, B, C, D, E;
+
+	assign F3 = (A & B & C) | ((A | (B & C)) & D) | ((B | C) & D & E);
+endmodule
+
+//---------------------F4---------------------//
+
+module Circuit_F4 (A, B, C, D, E, F4);
+	output F4;
+	input A, B, C, D, E;
+
+	assign F4 = (A & (B | (C & D) | E)) | (B & C & D & E);
+endmodule
