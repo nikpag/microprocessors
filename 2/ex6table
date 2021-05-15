@@ -1,0 +1,46 @@
+\begin{center}
+	\begin{tabular}{*{18}{|c}|}
+		\hline
+		\multirow{2}{*}{\textbf{Memory}} & \multicolumn{16}{c|}{\textbf{Bit}} & \multirow{2}{*}{\textbf{Hex}}\\
+		\cline{2-17}
+
+
+		& \textbf{15} & \textbf{14} & \textbf{13} & \textbf{12} & \textbf{11} & \textbf{10} & \textbf{9} & \textbf{8} & \textbf{7} & \textbf{6} & \textbf{5} & \textbf{4} & \textbf{3} & \textbf{2} & \textbf{1} & \textbf{0} & \\
+
+		\hline
+		\hline
+
+		\multirow{2}{*}{\textbf{ROM1 (2K)}} & 0 & 0 & {\color{Red}\textbf{0}} & {\color{Red}\textbf{0}} & {\color{Red}\textbf{0}} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0000\\
+		\cline{2-18}
+		& 0 & 0 & {\color{Red}\textbf{0}} & {\color{Red}\textbf{0}} & {\color{Red}\textbf{0}} & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 07FF\\
+
+		\hline
+		\hline
+
+		\multirow{2}{*}{\textbf{ROM2 (2K)}} & 0 & 0 & {\color{Red}\textbf{0}} & {\color{Red}\textbf{0}} & {\color{Red}\textbf{1}} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0800\\
+		\cline{2-18}
+		& 0 & 0 & {\color{Red}\textbf{0}} & {\color{Red}\textbf{0}} & {\color{Red}\textbf{1}} & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0FFF\\
+
+		\hline
+		\hline
+
+		\multirow{2}{*}{\textbf{ROM3 (4K)}} & 0 & 0 & {\color{Red}\textbf{0}} & {\color{Red}\textbf{1}} & {\color{Red}\textbf{0}} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1000\\
+		\cline{2-18}
+		& 0 & 0 & {\color{Red}\textbf{0}} & {\color{Red}\textbf{1}} & {\color{Red}\textbf{1}} & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1FFF\\
+
+		\hline
+		\hline
+
+		\multirow{2}{*}{\textbf{SRAM1 (2K)}} & 0 & 0 & {\color{Red}\textbf{1}} & {\color{Red}\textbf{0}} & {\color{Red}\textbf{0}} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 2000\\
+		\cline{2-18}
+		& 0 & 0 & {\color{Red}\textbf{1}} & {\color{Red}\textbf{0}} & {\color{Red}\textbf{0}} & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 27FF\\
+
+		\hline
+		\hline
+
+		\multirow{2}{*}{\textbf{SRAM2 (2K)}} & 0 & 0 & {\color{Red}\textbf{1}} & {\color{Red}\textbf{0}} & {\color{Red}\textbf{1}} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 2800\\
+		\cline{2-18}
+		& 0 & 0 & {\color{Red}\textbf{1}} & {\color{Red}\textbf{0}} & {\color{Red}\textbf{1}} & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 2FFF\\
+		\hline
+	\end{tabular}
+\end{center}
