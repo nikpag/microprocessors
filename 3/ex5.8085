@@ -1,0 +1,24 @@
+BEGIN:
+	MVI A,0EH		; Have to change something for rst6.5 instead of rst5.5
+	SIM				; Set Interrupt Mask
+	LXI H,0000H		; ??? (Data accumulator)
+	MVI C,40H		; Counter 40 hex = 64 dec
+	EI				; Enable interrupt
+ADDR:				; ??
+	MVI A,C 		; For comparing with 0
+	CPI 0			; Check to see if finished
+	JNZ ADDR		; If not finished, repeat
+	DI 				; Disable interrupt
+	DAD H 			; Shift HL 3 times to the left by doubling
+	DAD H
+	DAD H
+
+	HLT
+
+RST6.5:
+	PUSH PSW
+
+	MOV A,C
+	ANI 01H			; 00000001 in order to extract LSB
+	JPO GET4MSB		; If LSB is 1, go get 4MSB
+	IN 20H
