@@ -1,0 +1,30 @@
+#include <avr/io.h>
+
+char x,y,z,k;
+
+int main(void)
+{
+
+	DDRB=0xFF; // Αρχικοποίηση PORTB ως output
+	DDRD=0x00; // Αρχικοποίηση PORTD ως input
+	DDRA=0x00; // Αρχικοποίηση PORTA ως input
+
+	while(1)
+	{
+		x = PIND & 0x0F;	// Απομόνωση PD3-PD0
+
+		y = PIND & 0xF0;	// Απομόνωση PD7-PD4
+		y = y >> 4;			// Μεταφορά ψηφίου στην ορθή του αξία
+
+		z = PINA & 0x0F;	// Απομόνωση PA3-PA0
+
+		k = PINA & 0xF0;	// Απομόνωση PA7-PA4
+		k = k >> 4;			// Μεταφορά ψηφίου στην ορθή του αξία
+
+		PORTB = (x+y+z+k);	// Υπολογισμός αθροίσματος και έξοδος στην PORTB
+
+	}
+
+	return 0;
+
+}

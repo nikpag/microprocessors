@@ -1,0 +1,138 @@
+
+example3.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000000be  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000132  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000004  00800060  00800060  00000132  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000132  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000164  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000020  00000000  00000000  000001a0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000005fd  00000000  00000000  000001c0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 0000054e  00000000  00000000  000007bd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000207  00000000  00000000  00000d0b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000024  00000000  00000000  00000f14  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000002e7  00000000  00000000  00000f38  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000010  00000000  00000000  0000121f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   8:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  10:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  14:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  18:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  1c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  20:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  24:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  28:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  2c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  30:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  34:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  38:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  3c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  40:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  44:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  48:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  4c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  50:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d4 e0       	ldi	r29, 0x04	; 4
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_clear_bss>:
+  60:	20 e0       	ldi	r18, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	01 c0       	rjmp	.+2      	; 0x6a <.do_clear_bss_start>
+
+00000068 <.do_clear_bss_loop>:
+  68:	1d 92       	st	X+, r1
+
+0000006a <.do_clear_bss_start>:
+  6a:	a4 36       	cpi	r26, 0x64	; 100
+  6c:	b2 07       	cpc	r27, r18
+  6e:	e1 f7       	brne	.-8      	; 0x68 <.do_clear_bss_loop>
+  70:	0e 94 3e 00 	call	0x7c	; 0x7c <main>
+  74:	0c 94 5d 00 	jmp	0xba	; 0xba <_exit>
+
+00000078 <__bad_interrupt>:
+  78:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000007c <main>:
+char x,y,z,k;
+
+int main(void)
+{
+
+	DDRB=0xFF; // Αρχικοποίηση PORTB ως output
+  7c:	8f ef       	ldi	r24, 0xFF	; 255
+  7e:	87 bb       	out	0x17, r24	; 23
+	DDRD=0x00; // Αρχικοποίηση PORTD ως input
+  80:	11 ba       	out	0x11, r1	; 17
+	DDRA=0x00; // Αρχικοποίηση PORTA ως input
+  82:	1a ba       	out	0x1a, r1	; 26
+
+	while(1)
+	{
+		x = PIND & 0x0F;	// Απομόνωση PD3-PD0
+  84:	30 b3       	in	r19, 0x10	; 16
+  86:	43 2f       	mov	r20, r19
+  88:	4f 70       	andi	r20, 0x0F	; 15
+  8a:	40 93 60 00 	sts	0x0060, r20	; 0x800060 <__DATA_REGION_ORIGIN__>
+
+		y = PIND & 0xF0;	// Απομόνωση PD7-PD4
+  8e:	90 b3       	in	r25, 0x10	; 16
+		y = y >> 4;			// Μεταφορά ψηφίου στην ορθή του αξία
+  90:	39 2f       	mov	r19, r25
+  92:	32 95       	swap	r19
+  94:	3f 70       	andi	r19, 0x0F	; 15
+  96:	30 93 63 00 	sts	0x0063, r19	; 0x800063 <y>
+
+		z = PINA & 0x0F;	// Απομόνωση PA3-PA0
+  9a:	99 b3       	in	r25, 0x19	; 25
+  9c:	29 2f       	mov	r18, r25
+  9e:	2f 70       	andi	r18, 0x0F	; 15
+  a0:	20 93 62 00 	sts	0x0062, r18	; 0x800062 <z>
+
+		k = PINA & 0xF0;	// Απομόνωση PA7-PA4
+  a4:	99 b3       	in	r25, 0x19	; 25
+		k = k >> 4;			// Μεταφορά ψηφίου στην ορθή του αξία
+  a6:	89 2f       	mov	r24, r25
+  a8:	82 95       	swap	r24
+  aa:	8f 70       	andi	r24, 0x0F	; 15
+  ac:	80 93 61 00 	sts	0x0061, r24	; 0x800061 <k>
+
+		PORTB = (x+y+z+k);	// Υπολογισμός αθροίσματος και έξοδος στην PORTB
+  b0:	34 0f       	add	r19, r20
+  b2:	23 0f       	add	r18, r19
+  b4:	82 0f       	add	r24, r18
+  b6:	88 bb       	out	0x18, r24	; 24
+  b8:	e5 cf       	rjmp	.-54     	; 0x84 <main+0x8>
+
+000000ba <_exit>:
+  ba:	f8 94       	cli
+
+000000bc <__stop_program>:
+  bc:	ff cf       	rjmp	.-2      	; 0xbc <__stop_program>
