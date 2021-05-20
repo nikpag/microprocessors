@@ -2,7 +2,7 @@ BEGIN:
 	MVI A,0DH		; Interrupt mask: 00001101 (Disable 7.5, Enable 6.5, Disable 5.5)
 	SIM				; Set Interrupt Mask
 	LXI H,0000H		; H-L is the accumulator of the whole sum
-	MVI C,40H		; Counter. 40 hex = 64 dec
+	MVI C,08H		; Counter. 08 hex = 08 dec
 	EI				; Enable interrupt
 WAITING:			; Wait for all data
 	MOV A,C
@@ -15,23 +15,32 @@ WAITING:			; Wait for all data
 					; Like this:
 					; H --> _ _ _ _ _ x x x (result of div)
 					; L --> x x x x x _ _ _ (result of mod)
-	HLT
+	RST 1
 
-RST6.5:
+INTR_ROUTINE:
 	PUSH PSW
+
+	MVI A,00H
+	STA 3000H
 
 	MOV A,C
 	ANI 01H			; 00000001 in order to extract LSB
 	JPO READ4MSB	; If LSB is 1, go read 4 MSB
 
-	IN 20H			; Else, read 4 LSB
+	LDA 2000H		; Else, read 4 LSB
 	ANI 0FH			; 00001111 --> x3x2x1x0 Mask
 	MOV B,A 		; Store temporarily until 4 MSB come
-	DCR C			; Decrement counter
+
+	MOV A,B
+	CMA
+	STA 3000H
+
+	DCR C
+
 	JMP 4LSBDONE	; Return to main program until we read 4 MSB
 
 READ4MSB:
-	IN 20H			; Read 4 MSB
+	LDA 2000H		; Read 4 MSB
 	ANI 0FH 		; 00001111 --> x3x2x1x0 Mask
 	RLC 			; Shift 4 times to the left --> MSB in right place
 	RLC
@@ -42,10 +51,14 @@ READ4MSB:
 	MVI D,00H		; D-E pair is used to temporarily keep the whole result
 	MOV E,A 		; D = 0 and E = A (A has 4 MSB and 4 LSB we have already read)
 	DAD D 			; Add D-E to H-L (H-L is the accumulator)
+	MOV A,E 		;
+	CMA
+	STA 3000H		;
 	DCR C 			; Decrement counter
 
 4LSBDONE:
 	POP PSW
 	EI
 	RET
+
 END
