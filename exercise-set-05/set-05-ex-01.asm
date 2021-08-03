@@ -1,7 +1,6 @@
-
 PRINT MACRO CHAR
         PUSH AX
-        PUSH DX                  ; κράτα τις τιμές του καταχωρητή που θα αλλάξουν στην συνέχεια
+        PUSH DX                   ; κράτα τις τιμές του καταχωρητή που θα αλλάξουν στην συνέχεια
         MOV DL,CHAR
         MOV AH,2
         INT 21H
@@ -13,7 +12,7 @@ NEWLINE MACRO
         PUSH BX
         MOV BL,13
         PRINT BL
-        MOV BL,10               ; Κωδικός ASCII για την αλλαγή γραμμής
+        MOV BL,10                 ; Κωδικός ASCII για την αλλαγή γραμμής
         PRINT BL
         POP BX
 ENDM
@@ -21,11 +20,11 @@ ENDM
 PRINT_BYTE MACRO BYTE
         PUSH DX
         MOV DL,BYTE
-        AND DL,0F0H             ; πρώτο δεκαεξαδικό ψηφίο
+        AND DL,0F0H               ; πρώτο δεκαεξαδικό ψηφίο
         SHR DL,4
         CALL PRINT_HEX_DIGIT
         MOV DL,BYTE
-        AND DL,0FH              ; δεύτερο δεκαεξαδικό ψηφίο
+        AND DL,0FH                ; δεύτερο δεκαεξαδικό ψηφίο
         CALL PRINT_HEX_DIGIT
         POP DX
 ENDM
@@ -75,8 +74,8 @@ MAIN PROC FAR
         MOV AX,DATA_SEG
         MOV DS,AX
 
-        MOV BL,129              ;   στοιχεία
-        MOV DI,0                ;   δείκτης
+        MOV BL,129              ; στοιχεία
+        MOV DI,0                ; δείκτης
 
 FILL:
         DEC BL                  ; το πρώτο στοιχείο είναι 128
@@ -128,5 +127,5 @@ END:MOV AX,4C00H                ; τέλος
         INT 21H
 
 MAIN ENDP
-CODE_SEG ENDS 
-END MAIN 
+CODE_SEG ENDS
+END MAIN

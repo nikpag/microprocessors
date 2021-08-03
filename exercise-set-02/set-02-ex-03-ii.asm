@@ -1,4 +1,3 @@
-exer_3.2:
 	IN  10H					; remove memory protection
 START:	CALL KIND	; KIND waits for input from keyboard
  	MOV E,A					; E <- keyboard input

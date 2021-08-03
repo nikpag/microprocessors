@@ -1,5 +1,3 @@
-exer_1:
-
 a:
 	IN  10H
 	LXI H,0900H			; initial memory index 0900H

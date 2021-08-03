@@ -1,4 +1,3 @@
-            ; English comments because of Greek encoding issues
 START:
   MVI C,08H ; Use C as counter with initial value 8
   LDA 2000H ; Load dip switches content to A

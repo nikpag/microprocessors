@@ -1,4 +1,3 @@
-              ; English comments because of Greek encoding issues
   LXI B,01F4H ; 01F4H = 500 ms delay
 START:
   LDA 2000H

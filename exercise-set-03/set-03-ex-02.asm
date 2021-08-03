@@ -1,22 +1,22 @@
 	IN 10H
-	LXI H,0A00H	  ;----------------
+	LXI H,0A00H	  ; ----------------------
 	MVI M,10H
 	INX H
 	MVI M,10H
 	INX H
-	MVI M,10H     ;LED screen output blank
+	MVI M,10H     ; LED screen output blank
 	INX H
 	MVI M,10H
 	INX H
 	MVI M,10H
 	INX H
 	MVI M,10H
-	MVI A,0DH     ; --------------------
-	SIM           ;Enable 6.5 Interrupts
-	EI            ;----------------------
+	MVI A,0DH     ; ----------------------
+	SIM           ; Enable 6.5 Interrupts
+	EI            ; ----------------------
 
-LOOP_A:     	  ;infinite loop
-	JMP LOOP_A    ;wait for INTRPT
+LOOP_A:     	  ; infinite loop
+	JMP LOOP_A    ; wait for INTRPT
 
 INTR_ROUTINE:
 
@@ -45,7 +45,7 @@ INTR_ROUTINE:
 	STA 3000H     ;
 	JMP PRINT     ;
 LED_1:
-	MVI A,01H     ;-------------------------------------
+	MVI A,01H     ; -------------------------------------
 	CMA           ; labels to turn on proper LED
 	STA 3000H
 	JMP PRINT
@@ -55,10 +55,10 @@ LED_2:
 	STA 3000H
 	JMP PRINT
 
-PRINT:			   ; -------------------------------
-	LXI D,0A00H    ; load to D address to show
+PRINT:			   	; -------------------------------
+	LXI D,0A00H   ; load to D address to show
 	CALL STDM
 	CALL DCD
-	EI             ; enable interrupts again
-	JMP PRINT      ; print until interrupt happens
+	EI            ; enable interrupts again
+	JMP PRINT     ; print until interrupt happens
 END

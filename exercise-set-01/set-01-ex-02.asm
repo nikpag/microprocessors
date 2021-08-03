@@ -1,4 +1,3 @@
-              ; English comments because of Greek encoding issues
   IN 10H
   LXI B,01F4H ; 01F4H = 500 ms delay
   MVI E,01H   ; Set LSB as initial LED

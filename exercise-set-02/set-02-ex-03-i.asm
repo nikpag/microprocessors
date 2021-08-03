@@ -1,11 +1,10 @@
-exer_3.1:
-		IN  10H			; remove memory protection
+		IN  10H				; remove memory protection
 START:
-		LDA 2000H		; load input
- 		MVI D,00H		; D <- 00H
- 		MOV E,A			; stores initial input
- 		RAR 				; shift right until first
- 		JC  D_1 		; jump to label D_i if we find the first bit "1" at index i of the dip switches
+		LDA 2000H			; load input
+ 		MVI D,00H			; D <- 00H
+ 		MOV E,A				; stores initial input
+ 		RAR 					; shift right until first
+ 		JC  D_1 			; jump to label D_i if we find the first bit "1" at index i of the dip switches
 		RAR
  		JC  D_2
  		RAR
@@ -21,7 +20,7 @@ START:
 		RAR
 		JC  D_8
 
-SHOW: 					; SHOW outputs the content of A on negative logic leds
+SHOW: 						; SHOW outputs the content of A on negative logic leds
 		MOV A,D
 		CMA
  		STA 3000H

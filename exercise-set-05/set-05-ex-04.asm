@@ -1,6 +1,3 @@
-
-
-
 DATA SEGMENT
 S DB 20 DUP(?)
 DATA ENDS
@@ -103,7 +100,7 @@ INPUT PROC NEAR
     RET
   QUIT:
     MOV AX,4C00H                ; τέλος
-    INT 21H    
+    INT 21H
 INPUT ENDP
 
 CODE ENDS

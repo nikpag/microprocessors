@@ -4,57 +4,57 @@ char x, dummy;
 
 int main(void) {
 
-	DDRA = 0b11111111; // Αρχικοποίηση του PORTA ως output
-	DDRC = 0b00000000; // Αρχικοποίηση του PORTC ως input
+	DDRA = 0b11111111; // Initialize PORTA as output
+	DDRC = 0b00000000; // Initialize PORTC as input
 
-	x = 0b00000001;	// Αρχικοποίηση μεταβλητής για αρχικά αναμμένο LED
+	x = 0b00000001;	// Initialize variable for LED initially ON
 
 	PORTA = x;
 
 	while(1) {
-		if ((PINC & 0b0001) == 0b0001) { // Έλεγχος πατήματος push-button SW0
+		if ((PINC & 0b0001) == 0b0001) { // check if push-button SW0 is pressed
 
-			while ((PINC & 0b0001) == 0b0001); // Έλεγχος επαναφοράς push-button SW0
+			while ((PINC & 0b0001) == 0b0001); // check if push-button SW0 is released
 
-			// SW0: Ολίσθηση-περιστροφή του led μία θέση αριστερά (κυκλικά)
-			
+			// SW0: Shift-rotation of led one position to the left (circular)
+
 			if (x == 0b10000000)
 			x = 0b00000001;
 			else
 			x = x << 1;
 		}
 
-		if ((PINC & 0b0010) == 0b0010) { // Έλεγχος πατήματος push-button SW1
+		if ((PINC & 0b0010) == 0b0010) { // check if push-button SW1 is pressed
 
-			while ((PINC & 0b0010) == 0b0010); // Έλεγχος επαναφοράς push-button SW1
+			while ((PINC & 0b0010) == 0b0010); // check if push-button SW1 is released
 
-			// SW1: Ολίσθηση-περιστροφή του led μία θέση δεξιά (κυκλικά)
-			
+			// SW0: Shift-rotation of led one position to the right (circular)
+
 			if (x == 0b00000001)
 			x = 0b10000000;
 			else
 			x = x >> 1;
 		}
 
-		if ((PINC & 0b0100) == 0b0100) { // Έλεγχος πατήματος push-button SW2
+		if ((PINC & 0b0100) == 0b0100) { // check if push-button SW2 is pressed
 
-			while ((PINC & 0b0100) == 0b0100); // Έλεγχος επαναφοράς push-button SW2
+			while ((PINC & 0b0100) == 0b0100); // check if push-button SW2 is released
 
-			// SW2: Μετακίνηση του αναμμένου led στην θέση MSB (led7)
-			
+			// SW2: Move led to MSB place (led7)
+
 			x = 0b10000000;
 		}
 
-		if ((PINC & 0b1000) == 0b1000) { // Έλεγχος πατήματος push-button SW3
+		if ((PINC & 0b1000) == 0b1000) { // check if push-button SW3 is pressed
 
-			while ((PINC & 0b1000) == 0b1000); // Έλεγχος επαναφοράς push-button SW3
-			
-			// SW3: Μετακίνηση του αναμμένου led στην αρχική του θέση LSB (led0)
-			
+			while ((PINC & 0b1000) == 0b1000); // check if push-button SW3 is released
+
+			// SW3: Move led to initial (LSB) place (led0)
+
 			x = 0b00000001;
 		}
 
-		PORTA = x; // Έξοδος σε PORTA
+		PORTA = x; // show output to PORTA
 		dummy = 0;
 	}
 

@@ -1,17 +1,17 @@
 .include "m16def.inc"
 
-;r20 --> intermediate result register 1 (ir1)
-;r21 --> intermediate result register 2 (ir2)
-;r22 --> input (PORTA)
-;r23 --> output (PORTB)
-;r24 --> A
-;r25 --> B
-;r26 --> C
-;r27 --> D
-;r28 --> F0
-;r29 --> F1
-;r30 --> F
-;r31 --> holds input
+; r20 --> intermediate result register 1 (ir1)
+; r21 --> intermediate result register 2 (ir2)
+; r22 --> input (PORTA)
+; r23 --> output (PORTB)
+; r24 --> A
+; r25 --> B
+; r26 --> C
+; r27 --> D
+; r28 --> F0
+; r29 --> F1
+; r30 --> F
+; r31 --> holds input
 
 ser r22
 out DDRA, r22
@@ -20,26 +20,26 @@ out DDRB, r23
 
 main:
 	in r31, PORTA
-	
+
 	mov r24, r31
 	mov r25, r31
 	mov r26, r31
 	mov r27, r31
-	
+
 	andi r24, 0b00000001
-	
+
 	andi r25, 0b00000010
 	lsr r25
-	
+
 	andi r26, 0b00000100
 	lsr r26
 	lsr r26
-	
+
 	andi r27, 0b00001000
 	lsr r27
 	lsr r27
 	lsr r27
-	
+
 	mov r20, r26
 	com r20
 	and r20, r24
@@ -67,7 +67,7 @@ main:
 	mov r30, r28
 
 	out PORTB, r30
-	
-	nop ; dummy line to put breakpoint on
-	
+
+	nop 										; dummy line to put breakpoint on
+
 	jmp main
