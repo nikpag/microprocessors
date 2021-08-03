@@ -1,4 +1,0 @@
-module 4_bit_adder_subtractor (output [3:0] Sum, output C4, input [3:0] A, B, input M);
-
-	assign {C4, Sum} = M ? (A+(~B)+1) : (A+B);
-endmodule
